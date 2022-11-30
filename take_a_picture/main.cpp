@@ -167,7 +167,6 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 	glm::vec3 cameraUph = glm::vec3(0.0f, -1.0f, 0.0f); //--- 카메라 위쪽 방향
 	glm::mat4 viewh = glm::mat4(1.0f);
 	viewh = glm::lookAt(cameraPosh, cameraDirectionh, cameraUph);
-	if (hint.hint_) {
 		glViewport(width - 300, height - 200, 200, 200);
 		glUniform4f(vColorLocation, 0.0f, 0.0f, 0.0f, 1.0f);
 		glUseProgram(shaderProgram);
@@ -178,8 +177,7 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDrawArrays(GL_TRIANGLES, 0, object);
 		//예시(힌트)화면
-	}
-	hint.hint_ = false;
+	
 	glutSwapBuffers(); // 화면에 출력하기
 
 
