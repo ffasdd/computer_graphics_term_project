@@ -1,4 +1,5 @@
 ﻿  main.cpp
+<<<<<<< Updated upstream
 C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(54,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
 C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(68,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
 C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(335,15): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
@@ -9,5 +10,16 @@ C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(33
   2 of 257 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
+=======
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(54,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(68,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(337,15): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(337,22): warning C4101: 'sizeZ' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(337,8): warning C4101: 'sizeX' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(335,8): warning C4101: 'scaleAll' :참조되지 않은 지역 변수입니다.
+  코드를 생성하고 있습니다.
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 253 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+>>>>>>> Stashed changes
   코드를 생성했습니다.
-  take_a_picture.vcxproj -> C:\Users\Owner\Desktop\computer_graphics_term_project\Release\take_a_picture.exe
+  take_a_picture.vcxproj -> C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\Release\take_a_picture.exe
