@@ -19,6 +19,8 @@ void make_fragmentShaders();
 void make_shaderProgram();
 void InitBuffer();
 char* filetobuf(const char* file);
+void TimerFunction(int value); 
+void Mouse(int button, int state, int x, int y);
 GLint height, width;
 GLuint shaderProgram;
 GLuint vertexShader;
@@ -35,25 +37,41 @@ std::vector< glm::vec3 > out_normals;
 bool res = loadOBJ("tree.obj");
 //bool res = loadOBJ("cube.obj");
 GLint object = out_vertices.size();
+//함수=====================================
+void blanksys();
+void opensys();
 
+//bool=====================================
+//힌트 구조체
 typedef struct Hint
 {
-	int num = 3; //힌트 몇번 썼는지
-	bool hint_ = true;
-	bool blank = true;
-	void hintsys() {
-		if (hint_)
-		{
+	int num = 3;					//힌트 개수
+	bool blank = false;
+	bool hint_ = false;				//힌트 키 
+	void hintsys() {				//타이머 
+		
 			cout << "3" << endl;
 			Sleep(1000);
 			cout << "2" << endl;
 			Sleep(1000);
 			cout << "1" << endl;
-		}
+			
+		
 	}
+	
 };
 Hint hint;
+struct Element
+{
+	float x;
+	float y;
+	float z;
+	float scalex;
+	float scaley;
+	float scalez;
 
+};
+Element blank_h;
 float blank[] = {
 	2.0,-2.0,0.0,
 	-2.0,-2.0,0.0,
@@ -64,10 +82,14 @@ float blank[] = {
 
 };
 
+
 void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 { //--- 윈도우 생성하기
+	//초기값 설정-------------------------------
+	blank_h.x = 5.0;
+	//------------------------------------------
 	height = 600;
-	width = 1300;
+	width = 1200;
 	glutInit(&argc, argv); // glut 초기화
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); // 디스플레이 모드 설정
 	glutInitWindowPosition(100, 100); // 윈도우의 위치 지정
@@ -80,6 +102,8 @@ void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	make_shaderProgram(); //--- 세이더 프로그램 만들기
 	InitBuffer();
 	glutKeyboardFunc(keyboard);
+	glutTimerFunc(100, TimerFunction, 1);
+	glutMouseFunc(Mouse);
 	glutDisplayFunc(drawScene); // 출력 함수의 지정
 	glutMainLoop(); // 이벤트 처리 시작 
 
@@ -88,8 +112,7 @@ void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 
 
 
-
-GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
+GLvoid drawScene()
 {
 	glClearColor(1.0, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -102,25 +125,25 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 	//모델변환
 	glm::mat4 Sz = glm::mat4(1.0);
 	Sz = glm::scale(Sz, glm::vec3(0.5, 0.5, 0.5));
-	int modeltrans = glGetUniformLocation(shaderProgram, "Smatrix");
-	glUniformMatrix4fv(modeltrans, 1, GL_FALSE, glm::value_ptr(Sz));
+	unsigned int modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Sz));
 
 
 	//뷰 변환
-	glm::vec3 cameraPos = glm::vec3(-0.8f, 1.0f, 1.0f); //--- 카메라 위치
-	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f); //--- 카메라 바라보는 방향
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //--- 카메라 위쪽 방향
+	glm::vec3 cameraPos = glm::vec3(8.0f, 2.0f, 1.0f);
+	glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	glm::mat4 view = glm::mat4(1.0f);
 	view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
-	unsigned int viewLocation = glGetUniformLocation(shaderProgram, "viewTransform"); //--- 뷰잉 변환 설정
+	unsigned int viewLocation = glGetUniformLocation(shaderProgram, "viewTransform");
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
 
 
 	//투영변환
 	glm::mat4 projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 100.0f);
-	projection = glm::translate(projection, glm::vec3(0.0, 0.0, -3.0));//--- 공간을 약간 뒤로 미뤄줌
-	unsigned int projectionLocation = glGetUniformLocation(shaderProgram, "projectionTransform"); //--- 투영 변환 값 설정
+	projection = glm::translate(projection, glm::vec3(0.0, 0.0, -3.0));
+	unsigned int projectionLocation = glGetUniformLocation(shaderProgram, "projectionTransform");
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projection[0][0]);
 
 
@@ -128,62 +151,131 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 
 
 
-
-	int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor"); //--- object Color값 전달: (1.0, 0.5, 0.3)의 색
-	glUniform3f(objColorLocation, 1.0, 1.0, 1.0);
-
-	unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos"); //--- lightPos 값 전달: (0.0, 0.0, 5.0);
-	glUniform3f(lightPosLocation, 0.0, 0.0, 1.0);
-	int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor"); //--- lightColor 값 전달: (1.0, 1.0, 1.0) 백색
+	unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos");
+	glUniform3f(lightPosLocation, 10.0, 0.0, 0.0);
+	int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor");
 	glUniform3f(lightColorLocation, 1.0, 1.0, 1.0);
-
-	glUniform3f(objColorLocation, 1.0, 1.0, 1.0);
-	unsigned int viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos"); //--- viewPos 값 전달: 카메라 위치
+	unsigned int viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 	glUniform3f(viewPosLocation, 0.0, 0.0, 0.0);
 
 	int vColorLocation = glGetUniformLocation(shaderProgram, "outColor");
 
-
-	glViewport(-200, 0, width, height);
-	glUniform4f(vColorLocation, 0.0f, 0.0f, 0.0f, 1.0f);
-	glUseProgram(shaderProgram);
-	glBindVertexArray(VAO);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glDrawArrays(GL_TRIANGLES, 0, object);
-	//메인(플레이)화면
-
-
-
-	glViewport(width - 300, height - 500, 200, 200);
-	glUniform4f(vColorLocation, 0.0f, 0.0f, 0.0f, 1.0f);
-	glUseProgram(shaderProgram);
-	glBindVertexArray(VAO);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glDrawArrays(GL_TRIANGLES, 0, object);
-
-	//현재 진행상황 화면
-	glm::vec3 cameraPosh = glm::vec3(-0.8f, 1.0f, 1.0f); //--- 카메라 위치
-	glm::vec3 cameraDirectionh = glm::vec3(0.0f, 0.0f, 0.0f); //--- 카메라 바라보는 방향
-	glm::vec3 cameraUph = glm::vec3(0.0f, -1.0f, 0.0f); //--- 카메라 위쪽 방향
-	glm::mat4 viewh = glm::mat4(1.0f);
-	viewh = glm::lookAt(cameraPosh, cameraDirectionh, cameraUph);
-		glViewport(width - 300, height - 200, 200, 200);
-		glUniform4f(vColorLocation, 0.0f, 0.0f, 0.0f, 1.0f);
+	{//메인(플레이)화면
+		glViewport(-200, 0, width, height);
+		int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
+		glUniform3f(objColorLocation, 0.0, 1.0, 1.0);
 		glUseProgram(shaderProgram);
+		glm::mat4 Treex = glm::mat4(1.0f);
+		glm::mat4 Treey = glm::mat4(1.0f);
+		glm::mat4 Treez = glm::mat4(1.0f);
+		glm::mat4 Treescale = glm::mat4(1.0f);
+		glm::mat4 Tree = glm::mat4(1.0f);
+		Treex = glm::translate(Treex, glm::vec3(0.0, 0.0, 0.0));
+		Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+		Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+		Treescale = glm::scale(Treescale, glm::vec3(0.5, 0.5, 0.5));
+		Tree = Treex * Treey * Treez * Treescale;
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
 		glBindVertexArray(VAO);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDrawArrays(GL_TRIANGLES, 0, object);
+
+
+		glm::mat4 BlankRx = glm::mat4(1.0f);
+		glm::mat4 BlankRy = glm::mat4(1.0f);
+		glm::mat4 BlankRz = glm::mat4(1.0f);
+		glm::mat4 Blankx = glm::mat4(1.0f);
+		glm::mat4 Blanky = glm::mat4(1.0f);
+		glm::mat4 Blankz = glm::mat4(1.0f);
+		glm::mat4 Blankscale = glm::mat4(1.0f);
+		glm::mat4 Blank = glm::mat4(1.0f);
+	
+	}
+
+
+	{//현재 진행상황 화면
+		glViewport(width - 300, height - 500, 200, 200);
+		glm::vec3 cameraPos = glm::vec3(6.0, 0.0, 0.0);
+		glm::vec3 cameraDirection = glm::vec3(-1.0, 0.0, 0.0); 
+		glm::vec3 cameraUp = glm::vec3(0.0, 1.0, 0.0); 
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
+		unsigned int viewLocation = glGetUniformLocation(shaderProgram, "viewTransform"); 
+		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+
+		int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor"); 
+		glUniform3f(objColorLocation, 0.0, 1.0, 1.0);
+		glUseProgram(shaderProgram);
+		glm::mat4 Treex = glm::mat4(1.0f);
+		glm::mat4 Treey = glm::mat4(1.0f);
+		glm::mat4 Treez = glm::mat4(1.0f);
+		glm::mat4 Treescale = glm::mat4(1.0f);
+		glm::mat4 Tree = glm::mat4(1.0f);
+		Treex = glm::translate(Treex, glm::vec3(0.0, 0.0, 0.0));
+		Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+		Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+		Treescale = glm::scale(Treescale, glm::vec3(0.5, 0.5, 0.5));
+		Tree = Treex * Treey * Treez * Treescale;
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
+		glBindVertexArray(VAO);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0, object);
+	
+	}
+	{//예시(힌트)화면
+
+		glViewport(width - 300, height - 200, 200, 200);
+		glm::vec3 cameraPos = glm::vec3(6.0, 0.0, 0.0); 
+		glm::vec3 cameraDirection = glm::vec3(-8.0, 0.0, 0.0); 
+		glm::vec3 cameraUp = glm::vec3(0.0, 1.0, 0.0); 
+		glm::mat4 view = glm::mat4(1.0f);
+		view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
+		unsigned int viewLocation = glGetUniformLocation(shaderProgram, "viewTransform"); 
+		glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+
+		int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor"); 
+		glUniform3f(objColorLocation, 0.0, 1.0, 1.0);
+		glUseProgram(shaderProgram);
+		glm::mat4 Treex = glm::mat4(1.0f);
+		glm::mat4 Treey = glm::mat4(1.0f);
+		glm::mat4 Treez = glm::mat4(1.0f);
+		glm::mat4 Treescale = glm::mat4(1.0f);
+		glm::mat4 Tree = glm::mat4(1.0f);
+		Treex = glm::translate(Treex, glm::vec3(0.0, 0.0, 0.0));
+		Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+		Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+		Treescale = glm::scale(Treescale, glm::vec3(0.5, 0.5, 0.5));
+		Tree = Treex * Treey * Treez * Treescale;
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
+		glBindVertexArray(VAO);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0, object);
+		glm::mat4 BlankRx = glm::mat4(1.0f);
+		glm::mat4 BlankRy = glm::mat4(1.0f);
+		glm::mat4 BlankRz = glm::mat4(1.0f);
+		glm::mat4 Blankx = glm::mat4(1.0f);
+		glm::mat4 Blanky = glm::mat4(1.0f);
+		glm::mat4 Blankz = glm::mat4(1.0f);
+		glm::mat4 Blankscale = glm::mat4(1.0f);
+		glm::mat4 Blank = glm::mat4(1.0f);
+		BlankRx = glm::rotate(BlankRx, glm::radians(00.0f), glm::vec3(1.0, 0.0, 0.0));
+		BlankRy = glm::rotate(BlankRy, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+		BlankRz = glm::rotate(BlankRz, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
+		Blankx = glm::translate(Blankx, glm::vec3(blank_h.x, 0.0, 0.0));
+		Blanky = glm::translate(Blanky, glm::vec3(0.0, blank_h.y-2.0, 0.0));
+		Blankz = glm::translate(Blankz, glm::vec3(0.0, 0.0, blank_h.z+5.0));
+		Blankscale = glm::scale(Treescale, glm::vec3(3.0, 3.0, 3.0));
+		Blank = BlankRx * BlankRy * BlankRz * Blankx * Blanky * Blankz * Blankscale;
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Blank));
 		glBindVertexArray(VAO_blank);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDrawArrays(GL_TRIANGLES, 0, object);
-		//예시(힌트)화면
-	
+
+	}
 	glutSwapBuffers(); // 화면에 출력하기
 
 
 }
-
-
 
 
 
@@ -200,7 +292,7 @@ GLvoid InitBuffer() {
 	glBindVertexArray(VAO_blank);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_blank);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(blank), blank, GL_STATIC_DRAW);
-	GLint aAttribute = glGetAttribLocation(shaderProgram, "aPos");
+	GLint aAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(aAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 	glEnableVertexAttribArray(aAttribute);
 
@@ -218,14 +310,14 @@ GLvoid InitBuffer() {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_pos);
 	glBufferData(GL_ARRAY_BUFFER, out_vertices.size() * sizeof(glm::vec3), &out_vertices[0], GL_STATIC_DRAW);
-	GLint pAttribute = glGetAttribLocation(shaderProgram, "aPos");
+	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(pAttribute);
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_normal);
 	glBufferData(GL_ARRAY_BUFFER, out_normals.size() * sizeof(glm::vec3), &out_normals[0], GL_STATIC_DRAW);
-	GLint nAttribute = glGetAttribLocation(shaderProgram, "aNormal");
+	GLint nAttribute = glGetAttribLocation(shaderProgram, "vNormal");
 	glVertexAttribPointer(nAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(nAttribute);
 
@@ -464,15 +556,67 @@ char* filetobuf(const char* file)
 	return buf; // Return the buffer 
 }
 
+void blanksys() {
+	if (hint.blank) {
+		int blankdir = 1;
+		if (blank_h.x == -0.5)
+		{
+			blankdir = 0;
+		}
+		blank_h.x -= 0.5 * blankdir;
+	}
+	
+}
+void opensys() {
+	if (hint.hint_) {
+		if (hint.num >= 0) {
+			int blankdir = 1;
+			if (blank_h.x == 5.0) {
+				blankdir = 0;
+				hint.hint_ = false;
+				hint.hintsys();
+				hint.blank = true;
+			}
+			blank_h.x += 0.5 * blankdir;
+		}
+
+	}
+
+}
+void TimerFunction(int value)
+{
+
+	blanksys();
+	opensys();
+	glutPostRedisplay();
+	glutTimerFunc(100, TimerFunction, 1);
+}
+void Mouse(int button, int state, int x, int y){
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		cout << "x=" << x << "y=" << y << endl;
+	}
+}
+
 GLvoid keyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
-		//힌트 
-	case 'h':
-		hint.hint_ = true;
+		//힌트
+	case 's'://시작키
 		hint.hintsys();
+		hint.blank = true;
 		break;
-
+	case 'h':
+		hint.blank = false;
+		hint.hint_ = true;
+		hint.num -= 1;
+		cout << "남은 힌트-" << hint.num << endl;
+		
+		break;
+	case '1'://확인용
+		hint.blank = false;
+		blank_h.x += 0.5;
+		break;
 	}
 	glutPostRedisplay();
 }
