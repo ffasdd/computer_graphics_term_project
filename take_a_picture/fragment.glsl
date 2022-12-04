@@ -13,6 +13,6 @@ void main(){
 	vec3 lightDir=normalize(lightPos - FragPos);
 	float diffuseLight=max(dot(normalVector,lightDir),0.0);
 	vec3 diffuse = diffuseLight*lightColor;
-	vec3 result=(diffuse)*objectColor;
+	vec3 result=(ambient+diffuse)*objectColor;
 	FragColor = vec4(result,1.0);
 }
