@@ -43,7 +43,7 @@ std::vector< glm::vec3 > out_vertices3;
 std::vector< glm::vec2 > out_uvs3;
 std::vector< glm::vec3 > out_normals3;
 bool res = loadOBJ("tree.obj", out_vertices, out_uvs, out_normals);
-bool res2 = loadOBJ("BG.obj", out_vertices2, out_uvs2, out_normals2);
+bool res2 = loadOBJ("flag.obj", out_vertices2, out_uvs2, out_normals2);
 bool res3 = loadOBJ("Lino.obj", out_vertices3, out_uvs3, out_normals3);
 //bool res = loadOBJ("cube.obj");
 GLint object = out_vertices.size();
@@ -171,6 +171,73 @@ GLvoid drawScene()
     glUniform3f(viewPosLocation, 0.0, 0.0, 0.0);
 
     int vColorLocation = glGetUniformLocation(shaderProgram, "outColor");
+    //ui
+
+
+
+    {//UI
+        glm::vec3 cameraPos = glm::vec3(0.0, 0.0, 1.0);
+        glm::vec3 cameraDirection = glm::vec3(0.0f, 0.0f, 0.0f);
+        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        view = glm::lookAt(cameraPos, cameraDirection, cameraUp);
+        unsigned int viewLocation = glGetUniformLocation(shaderProgram, "viewTransform");
+        glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+        glViewport(-300, 350, width, height / 2.0);
+        int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
+        glUniform3f(objColorLocation, 1.0, 0.0, 0.0);
+        glUseProgram(shaderProgram);
+        glm::mat4 Treex = glm::mat4(1.0f);
+        glm::mat4 Treey = glm::mat4(1.0f);
+        glm::mat4 Treez = glm::mat4(1.0f);
+        glm::mat4 Treescale = glm::mat4(1.0f);
+        glm::mat4 Tree = glm::mat4(1.0f);
+        Treex = glm::translate(Treex, glm::vec3(0.0, 0.0, 0.0));
+        Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+        Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+        Treescale = glm::scale(Treescale, glm::vec3(0.05, 0.2, 0.2));
+        Tree = Treex * Treey * Treez * Treescale;
+        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
+        glBindVertexArray(VAO2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glDrawArrays(GL_TRIANGLES, 0, object);
+        //2
+        {
+            glm::mat4 Treex = glm::mat4(1.0f);
+            glm::mat4 Treey = glm::mat4(1.0f);
+            glm::mat4 Treez = glm::mat4(1.0f);
+            glm::mat4 Treescale = glm::mat4(1.0f);
+            glm::mat4 Tree = glm::mat4(1.0f);
+            Treex = glm::translate(Treex, glm::vec3(0.3, 0.0, 0.0));
+            Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+            Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+            Treescale = glm::scale(Treescale, glm::vec3(0.05, 0.2, 0.2));
+            Tree = Treex * Treey * Treez * Treescale;
+            glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
+            glBindVertexArray(VAO2);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDrawArrays(GL_TRIANGLES, 0, object);
+        }
+        //3
+        {
+            glm::mat4 Treex = glm::mat4(1.0f);
+            glm::mat4 Treey = glm::mat4(1.0f);
+            glm::mat4 Treez = glm::mat4(1.0f);
+            glm::mat4 Treescale = glm::mat4(1.0f);
+            glm::mat4 Tree = glm::mat4(1.0f);
+            Treex = glm::translate(Treex, glm::vec3(-0.3, 0.0, 0.0));
+            Treey = glm::translate(Treey, glm::vec3(0.0, 0.0, 0.0));
+            Treez = glm::translate(Treez, glm::vec3(0.0, 0.0, 0.0));
+            Treescale = glm::scale(Treescale, glm::vec3(0.05, 0.2, 0.2));
+            Tree = Treex * Treey * Treez * Treescale;
+            glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Tree));
+            glBindVertexArray(VAO2);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            glDrawArrays(GL_TRIANGLES, 0, object);
+        }
+
+    }
+
 
     {//메인(플레이)화면
         glm::vec3 cameraPos = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -182,7 +249,7 @@ GLvoid drawScene()
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
         glViewport(-200, 0, width, height);
         int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
-        glUniform3f(objColorLocation, 0.0,0.6,0.0);
+        glUniform3f(objColorLocation, 0.0, 0.6, 0.0);
         glUseProgram(shaderProgram);
         glm::mat4 Treex = glm::mat4(1.0f);
         glm::mat4 Treey = glm::mat4(1.0f);
@@ -198,31 +265,9 @@ GLvoid drawScene()
         glBindVertexArray(VAO);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glDrawArrays(GL_TRIANGLES, 0, object);
+
         { int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
-        glUniform3f(objColorLocation, 1.0,0.0, 0.0);
-        //object test
-        glm::mat4 Signx = glm::mat4(1.0f);
-        glm::mat4 Signy = glm::mat4(1.0f);
-        glm::mat4 Signz = glm::mat4(1.0f);
-        glm::mat4 SignRx = glm::mat4(1.0f);
-        glm::mat4 SignRy = glm::mat4(1.0f);
-        glm::mat4 SignRz = glm::mat4(1.0f);
-        glm::mat4 Signscale = glm::mat4(1.0f);
-        glm::mat4 Sign = glm::mat4(1.0f);
-        Signx = glm::translate(Signx, glm::vec3(0.2, 0.0, 0.0));
-        Signy = glm::translate(Signy, glm::vec3(0.0, -0.2, 0.0));
-        Signz = glm::translate(Signz, glm::vec3(0.0, 0.0, 0.2));
-        SignRx = glm::rotate(SignRx, glm::radians(0.0f), glm::vec3(1.5, 0.0, 0.0));
-        SignRy = glm::rotate(SignRy, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-        SignRz = glm::rotate(SignRz, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
-        Signscale = glm::scale(Signscale, glm::vec3(0.3, 0.3, 0.3));
-        Sign = Signx * Signy * Signz * SignRx * SignRy * SignRz * Signscale;
-        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Sign));
-        glBindVertexArray(VAO2);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDrawArrays(GL_TRIANGLES, 0, object2); }
-        { int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
-        glUniform3f(objColorLocation, 1.0,1.0,0.0);
+        glUniform3f(objColorLocation, 1.0, 1.0, 0.0);
         //object test
         glm::mat4 Signx = glm::mat4(1.0f);
         glm::mat4 Signy = glm::mat4(1.0f);
@@ -236,9 +281,9 @@ GLvoid drawScene()
         Signy = glm::translate(Signy, glm::vec3(0.0, -0.2, 0.0));
         Signz = glm::translate(Signz, glm::vec3(0.0, 0.0, 0.8));
         SignRx = glm::rotate(SignRx, glm::radians(0.0f), glm::vec3(1.5, 0.0, 0.0));
-        SignRy = glm::rotate(SignRy, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+        SignRy = glm::rotate(SignRy, glm::radians(120.0f), glm::vec3(0.0, 1.0, 0.0));
         SignRz = glm::rotate(SignRz, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
-        Signscale = glm::scale(Signscale, glm::vec3(0.3,0.3,0.3));
+        Signscale = glm::scale(Signscale, glm::vec3(0.3, 0.3, 0.3));
         Sign = Signx * Signy * Signz * SignRx * SignRy * SignRz * Signscale;
         glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Sign));
         glBindVertexArray(VAO3);
@@ -275,7 +320,7 @@ GLvoid drawScene()
         glBindVertexArray(VAO);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glDrawArrays(GL_TRIANGLES, 0, object);
-       
+
         { int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
         glUniform3f(objColorLocation, 1.0, 1.0, 0.0);
         //object test
@@ -299,29 +344,29 @@ GLvoid drawScene()
         glBindVertexArray(VAO3);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glDrawArrays(GL_TRIANGLES, 0, object3); }
-        { int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
-        glUniform3f(objColorLocation, 1.0, 0.0, 0.0);
-        //object test
-        glm::mat4 Signx = glm::mat4(1.0f);
-        glm::mat4 Signy = glm::mat4(1.0f);
-        glm::mat4 Signz = glm::mat4(1.0f);
-        glm::mat4 SignRx = glm::mat4(1.0f);
-        glm::mat4 SignRy = glm::mat4(1.0f);
-        glm::mat4 SignRz = glm::mat4(1.0f);
-        glm::mat4 Signscale = glm::mat4(1.0f);
-        glm::mat4 Sign = glm::mat4(1.0f);
-        Signx = glm::translate(Signx, glm::vec3(0.2, 0.0, 0.0));
-        Signy = glm::translate(Signy, glm::vec3(0.0, -0.2, 0.0));
-        Signz = glm::translate(Signz, glm::vec3(0.0, 0.0, 0.2));
-        SignRx = glm::rotate(SignRx, glm::radians(0.0f), glm::vec3(1.5, 0.0, 0.0));
-        SignRy = glm::rotate(SignRy, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-        SignRz = glm::rotate(SignRz, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
-        Signscale = glm::scale(Signscale, glm::vec3(0.3, 0.3, 0.3));
-        Sign = Signx * Signy * Signz * SignRx * SignRy * SignRz * Signscale;
-        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Sign));
-        glBindVertexArray(VAO2);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glDrawArrays(GL_TRIANGLES, 0, object2); }
+        //{ int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor");
+        //glUniform3f(objColorLocation, 1.0, 0.0, 0.0);
+        ////object test
+        //glm::mat4 Signx = glm::mat4(1.0f);
+        //glm::mat4 Signy = glm::mat4(1.0f);
+        //glm::mat4 Signz = glm::mat4(1.0f);
+        //glm::mat4 SignRx = glm::mat4(1.0f);
+        //glm::mat4 SignRy = glm::mat4(1.0f);
+        //glm::mat4 SignRz = glm::mat4(1.0f);
+        //glm::mat4 Signscale = glm::mat4(1.0f);
+        //glm::mat4 Sign = glm::mat4(1.0f);
+        //Signx = glm::translate(Signx, glm::vec3(0.2, 0.0, 0.0));
+        //Signy = glm::translate(Signy, glm::vec3(0.0, -0.2, 0.0));
+        //Signz = glm::translate(Signz, glm::vec3(0.0, 0.0, 0.2));
+        //SignRx = glm::rotate(SignRx, glm::radians(0.0f), glm::vec3(1.5, 0.0, 0.0));
+        //SignRy = glm::rotate(SignRy, glm::radians(120.0f), glm::vec3(0.0, 1.0, 0.0));
+        //SignRz = glm::rotate(SignRz, glm::radians(0.0f), glm::vec3(0.0, 0.0, 1.0));
+        //Signscale = glm::scale(Signscale, glm::vec3(0.3, 0.3, 0.3));
+        //Sign = Signx * Signy * Signz * SignRx * SignRy * SignRz * Signscale;
+        //glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(Sign));
+        //glBindVertexArray(VAO2);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        //glDrawArrays(GL_TRIANGLES, 0, object2); }
     }
     {//예시(힌트)화면
 
@@ -373,7 +418,7 @@ GLvoid drawScene()
         glDrawArrays(GL_TRIANGLES, 0, object);
 
     }
-    glutSwapBuffers(); // 화면에 출력하기
+    glutSwapBuffers(); // 화면에 출력하기S
 
 
 }
