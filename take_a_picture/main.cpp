@@ -720,7 +720,7 @@ bool loadOBJ(const char* path, vector< glm::vec3 >& vertices, vector< glm::vec2 
 
     return true;
 }
-
+//-----------------------kk
 
 //파일 읽기-----------------------
 char* filetobuf(const char* file)
