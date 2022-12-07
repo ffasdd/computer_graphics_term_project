@@ -1,15 +1,16 @@
 ﻿  main.cpp
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(62,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(87,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(427,15): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(427,22): warning C4101: 'sizeZ' :참조되지 않은 지역 변수입니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(427,8): warning C4101: 'sizeX' :참조되지 않은 지역 변수입니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(425,8): warning C4101: 'scaleAll' :참조되지 않은 지역 변수입니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(566,20): warning C4244: '-=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\Owner\Desktop\computer_graphics_term_project\take_a_picture\main.cpp(580,21): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(74,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(99,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(185,50): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(262,52): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(568,18): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(568,25): warning C4101: 'sizeZ' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(568,11): warning C4101: 'sizeX' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(566,11): warning C4101: 'scaleAll' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(707,26): warning C4244: '-=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(721,30): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  35 of 271 functions (12.9%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    22 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 283 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   코드를 생성했습니다.
-  take_a_picture.vcxproj -> C:\Users\Owner\Desktop\computer_graphics_term_project\Release\take_a_picture.exe
+  take_a_picture.vcxproj -> C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\Release\take_a_picture.exe

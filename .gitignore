@@ -199,3 +199,11 @@ _Pvt_Extensions
 .paket/paket.exe
 # FAKE - F# Make
 .fake/
+*.iobj
+*.tlog
+*.tlog
+take_a_picture/Release/take_a_picture.tlog/take_a_picture.lastbuildstate
+.vs/take_a_picture/v17/.suo
+.vs/take_a_picture/v17/Browse.VC.db
+Release/take_a_picture.exe
+Release/take_a_picture.pdb

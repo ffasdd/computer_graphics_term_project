@@ -107,7 +107,7 @@ void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
     glutInitWindowPosition(100, 100); // 윈도우의 위치 지정
     glutInitWindowSize(width, height); // 윈도우의 크기 지정
     glutCreateWindow("cube");
-    glewExperimental = GL_TRUE;
+    glewExperimental = GL_TRUE;//
     glewInit();
     make_vertexShaders(); //--- 버텍스 세이더 만들기
     make_fragmentShaders(); //--- 프래그먼트 세이더 만들기
