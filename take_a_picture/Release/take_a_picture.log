@@ -1,18 +1,17 @@
 ﻿  main.cpp
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(74,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(99,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(186,45): warning C4244: '인수': 'double'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(252,52): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(307,52): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(613,18): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(613,25): warning C4101: 'sizeZ' :참조되지 않은 지역 변수입니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(613,11): warning C4101: 'sizeX' :참조되지 않은 지역 변수입니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(611,11): warning C4101: 'scaleAll' :참조되지 않은 지역 변수입니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(752,26): warning C4244: '-=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(766,30): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(42,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'obj' 왼쪽은 무시됩니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(102,2): warning C4091: 'typedef ': 변수를 선언하지 않으면 'Hint' 왼쪽은 무시됩니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(124,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(200,39): warning C4244: '인수': 'double'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(782,15): warning C4101: 'sizeY' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(782,22): warning C4101: 'sizeZ' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(782,8): warning C4101: 'sizeX' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(780,8): warning C4101: 'scaleAll' :참조되지 않은 지역 변수입니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(921,20): warning C4244: '-=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\take_a_picture\main.cpp(935,21): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  25 of 283 functions ( 8.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+  203 of 447 functions (45.4%) were compiled, the rest were copied from previous compilation.
+    184 functions were new in current compilation
+    13 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   take_a_picture.vcxproj -> C:\Users\nhc08\OneDrive\바탕 화면\2022_2\컴퓨터 그래픽스\take_a_picture\computer_graphics_term_project\Release\take_a_picture.exe
